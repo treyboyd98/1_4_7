@@ -3,7 +3,13 @@ import matplotlib.pyplot as plt # single use of plt is commented out
 import os.path  
 import PIL.ImageDraw    
 
+#set logo
+abslogo = os.getcwd() + "\logo.png"
+logo = PIL.Image.open(abslogo)
+
+
 def get_images(directory=None):
+    global image_list
     """ Returns PIL.Image objects for all the images in directory.
     
     If directory is not specified, uses \images directory.
@@ -22,9 +28,12 @@ def get_images(directory=None):
     for entry in directory_list:
         absolute_filename = os.path.join(directory, entry)
         try:
-            image = PIL.Image.open(absolute_filename)
+            image = PIL.Image.open(absolute_filename)            
             file_list += [entry]
             image_list += [image]
         except IOError:
             pass # do nothing with errors tying to open non-images
     return image_list, file_list
+    
+
+
