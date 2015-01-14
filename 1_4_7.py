@@ -6,6 +6,7 @@ import PIL.ImageDraw
 #set logo
 abslogo = os.getcwd() + "\logo.png"
 logo = PIL.Image.open(abslogo)
+imagesdir = os.getcwd() + "\images"
 
 
 def get_images(directory=None):
@@ -32,7 +33,7 @@ def get_images(directory=None):
             image_list += [image]
         except IOError:
             pass # do nothing with errors tying to open non-images
-    open_others(image_list)
+    open_others(image_list, file_list)
     return image_list, file_list
     
 
@@ -40,14 +41,23 @@ def open_image():
     get_images()
     # show logo
     global logo
-    fig, axes = plt.subplots(1, 2)
+    fig, axes = plt.subplots(1, 1)
     axes[0].imshow(logo, interpolation='none')
     
-def open_others(image_list):
+def open_others(image_list, file_list):
+    newdir = (imagesdir, "\out")
+    fig, axes = plt.subplots(1, 1)
 #    prin = 0 # Used to test if image_list is working correctly and detecting images
     for image in image_list:
 #        prin += 1 # Used to test if image_list is working correctly and detecting images
 #    print prin # Used to test if image_list is working correctly and detecting images
+        # Parse the filename
+        filename, filetype = file_list[image].split('.')
+        new_image_filename = os.path.join(newdir, filename + '.png')
+        image.paste(logo, (0, 0))
+        image.save(new_image_filename)
+        
+    
     
 
     
