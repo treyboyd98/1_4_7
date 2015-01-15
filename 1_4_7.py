@@ -35,28 +35,32 @@ def get_images(directory=None):
             pass # do nothing with errors tying to open non-images
     open_others(image_list, file_list)
     return image_list, file_list
+
     
 
 def open_image():
-    get_images()
     # show logo
     global logo
     fig, axes = plt.subplots(1, 1)
-    axes[0].imshow(logo, interpolation='none')
+    axes.imshow(logo, interpolation='none')
+    get_images()
     
 def open_others(image_list, file_list):
-    newdir = (imagesdir, "\out")
+# Directory to save images to
+    newdir = (imagesdir + "\out")
+    print newdir
     fig, axes = plt.subplots(1, 1)
 #    prin = 0 # Used to test if image_list is working correctly and detecting images
-    for image in image_list:
+    for image in range(len(image_list)):
 #        prin += 1 # Used to test if image_list is working correctly and detecting images
 #    print prin # Used to test if image_list is working correctly and detecting images
         # Parse the filename
+        new_image = image_list[image]
         filename, filetype = file_list[image].split('.')
         new_image_filename = os.path.join(newdir, filename + '.png')
-        image.paste(logo, (0, 0))
-        image.save(new_image_filename)
-        
+#        image.paste(logo, (0, 0))
+        new_image.save(new_image_filename)
+
     
     
 
